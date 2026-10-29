@@ -1,4 +1,4 @@
-const CACHE_NAME = "sihebat-pwa-v171";
+const CACHE_NAME = "sihebat-pwa-v172";
 
 const ASSETS_TO_CACHE = [
     "./",

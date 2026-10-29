@@ -1,8 +1,3 @@
-/* Antrean presensi offline.
- * Satu entri per tanggal. Presensi baru di tanggal yang sama digabung per
- * siswa_id (yang terbaru menang), jadi menyimpan kelas kedua saat offline
- * tidak lagi menimpa kelas pertama.
- * Format simpanan lama { items, tanggal } dimigrasi otomatis. */
 const OFFLINE_QUEUE_KEY = "offline_absensi_queue";
 
 const OfflineAbsensi = (function () {

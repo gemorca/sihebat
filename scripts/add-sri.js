@@ -1,15 +1,3 @@
-/* Tambah atau periksa atribut integrity (SRI) untuk skrip dan stylesheet CDN
- * di index.html.
- *
- *   npm run sri          Hitung hash SHA-384 lalu tulis integrity dan
- *                        crossorigin="anonymous" ke index.html.
- *   npm run sri:check    Periksa hash yang sudah ada. Keluar dengan kode 1
- *                        jika ada yang tidak cocok. Cocok untuk CI.
- *
- * Butuh Node 18+ dan koneksi internet. Hanya cdn.jsdelivr.net dan
- * cdnjs.cloudflare.com yang diproses. Google Fonts dilewati karena isinya
- * berubah menurut browser. Setelah mengubah versi pustaka di index.html,
- * jalankan lagi, lalu naikkan CACHE_NAME di sw.js. */
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");

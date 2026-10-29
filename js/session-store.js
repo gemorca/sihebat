@@ -1,9 +1,3 @@
-/* Penyimpanan sesi (token + user).
- * Default: sessionStorage. Token hilang saat tab/aplikasi ditutup dan tidak
- * bertahan di disk. Ubah SESSION_STORAGE_MODE di config.js ke "local" kalau
- * pengguna harus tetap masuk setelah aplikasi ditutup.
- * Sesi juga kedaluwarsa setelah SESSION_MAX_AGE_MS tanpa aktivitas
- * (aktivitas = token diperbarui tiap 10 menit saat aplikasi terbuka). */
 const SESSION_KEY = "session_anak_wali";
 
 const SessionStore = (function () {
