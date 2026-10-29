@@ -2,6 +2,9 @@ const API_URL = "https://script.google.com/macros/s/AKfycbxYhmWRP1cBUQCwgFMJHp44
 
 const PASSWORD_MIN_LENGTH = 8;
 
+const SESSION_STORAGE_MODE = "session";
+const SESSION_MAX_AGE_MS = 12 * 60 * 60 * 1000;
+
 const CACHE_TTL = 5 * 60 * 1000;
 const NOTIF_POLL_MS = 3 * 60 * 1000;
 

@@ -133,12 +133,7 @@ function bersihkanJejakSiswaLokal(daftarId) {
         });
 
 
-        const antrean = JSON.parse(localStorage.getItem("offline_absensi_queue") || "null");
-        if (antrean && Array.isArray(antrean.items)) {
-            antrean.items = antrean.items.filter(bukanTerhapus);
-            if (antrean.items.length) localStorage.setItem("offline_absensi_queue", JSON.stringify(antrean));
-            else localStorage.removeItem("offline_absensi_queue");
-        }
+        OfflineAbsensi.filterItems(bukanTerhapus);
     } catch (e) { }
 }
 
@@ -280,13 +275,12 @@ function syncUserFlags(fresh) {
 
     appState.user = { ...appState.user, ...fresh };
     try {
-        const s = JSON.parse(localStorage.getItem("session_anak_wali") || "{}");
-        if (s.user) {
+        SessionStore.update(s => {
+            if (!s.user) return;
             ["is_wali", "is_mentor", "kelas_wali_id", "jumlah_binaan"].forEach(k => {
                 if (appState.user[k] !== undefined) s.user[k] = appState.user[k];
             });
-            localStorage.setItem("session_anak_wali", JSON.stringify(s));
-        }
+        });
     } catch (e) { }
 
     initPeranAktif();

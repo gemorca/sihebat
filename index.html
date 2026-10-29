@@ -15,10 +15,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -79,7 +79,7 @@
     <script>
         (function() {
             try {
-                const session = localStorage.getItem("session_anak_wali");
+                const session = sessionStorage.getItem("session_anak_wali") || localStorage.getItem("session_anak_wali");
                 const urlParams = new URLSearchParams(window.location.search);
                 const isMagic = urlParams.has('magic_token');
                 if (session || isMagic) {
@@ -1185,9 +1185,11 @@
     </div>
 
     <script src="js/config.js"></script>
+    <script src="js/session-store.js"></script>
     <script src="js/state.js"></script>
     <script src="js/maskot.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/offline-queue.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/pdf.js"></script>
     <script src="js/install.js"></script>

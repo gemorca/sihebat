@@ -219,10 +219,10 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     initTheme();
 
-    const savedSession = localStorage.getItem("session_anak_wali");
+    const savedSession = SessionStore.get();
     if (savedSession) {
         try {
-            const parsed = JSON.parse(savedSession);
+            const parsed = savedSession;
             if (parsed && parsed.token && parsed.user) {
                 appState.token = parsed.token;
                 appState.user = parsed.user;
@@ -243,11 +243,11 @@ window.addEventListener("DOMContentLoaded", async () => {
                     }
                 });
             } else {
-                localStorage.removeItem("session_anak_wali");
+                SessionStore.clear();
                 document.documentElement.classList.remove("has-session");
             }
         } catch (e) {
-            localStorage.removeItem("session_anak_wali");
+            SessionStore.clear();
             document.documentElement.classList.remove("has-session");
         }
     } else {

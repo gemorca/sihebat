@@ -381,7 +381,7 @@ async function handleAppLogin(e) {
         try { localStorage.setItem(LOGIN_ROLE_KEY, role); } catch (_) { }
         appState.token = res.token;
         appState.user = res.user;
-        localStorage.setItem("session_anak_wali", JSON.stringify({ token: res.token, user: res.user }));
+        SessionStore.set(res.token, res.user);
         showPostLoginSplash("Login Berhasil, Mengalihkan...");
         startSplashAutoProgress();
         try {
@@ -527,9 +527,7 @@ async function submitForcePasswordChange(e) {
     if (res && res.status === "success") {
         appState.user.mustChangePassword = false;
 
-        const savedSession = JSON.parse(localStorage.getItem("session_anak_wali") || "{}");
-        if (savedSession.user) savedSession.user.mustChangePassword = false;
-        localStorage.setItem("session_anak_wali", JSON.stringify(savedSession));
+        SessionStore.update(s => { if (s.user) s.user.mustChangePassword = false; });
 
         const modal = document.getElementById("modal-container");
         if (modal) {
@@ -692,7 +690,7 @@ function handleLogout(force = false) {
 
         document.documentElement.classList.remove("has-session");
         sessionStorage.removeItem("app_last_view");
-        localStorage.removeItem("session_anak_wali");
+        SessionStore.clear();
         localStorage.removeItem("cache_appState_full");
         localStorage.removeItem("notif_ditangani_cache");
         localStorage.removeItem("login_last_role");
@@ -1211,9 +1209,7 @@ async function hapusFotoProfil() {
     if (res && res.status === "success") {
         appState.user.foto = "";
 
-        const savedSession = JSON.parse(localStorage.getItem("session_anak_wali") || "{}");
-        savedSession.user = appState.user;
-        localStorage.setItem("session_anak_wali", JSON.stringify(savedSession));
+        SessionStore.update(s => { s.user = appState.user; });
 
         const defaultAvatar = getInitialsAvatar(appState.user.nama);
         const previewImg = document.getElementById("preview-foto-profil");
@@ -1331,9 +1327,7 @@ async function saveSelfProfileForm(e) {
         appState.user.no_hp = payload.no_hp;
         if (res.photoUrl) appState.user.foto = res.photoUrl;
 
-        const savedSession = JSON.parse(localStorage.getItem("session_anak_wali") || "{}");
-        savedSession.user = appState.user;
-        localStorage.setItem("session_anak_wali", JSON.stringify(savedSession));
+        SessionStore.update(s => { s.user = appState.user; });
 
         const userAvatar = document.getElementById("user-avatar");
         const sbAvatar = document.getElementById("sidebar-avatar");

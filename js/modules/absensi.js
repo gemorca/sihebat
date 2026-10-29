@@ -461,7 +461,11 @@ async function saveBatchAbsensiForm(event) {
     });
 
     if (!navigator.onLine) {
-        localStorage.setItem("offline_absensi_queue", JSON.stringify({ items: payloadAbsensi, tanggal: tanggalTarget }));
+        if (!OfflineAbsensi.enqueue(tanggalTarget, payloadAbsensi)) {
+            hideLoading();
+            showToast("Gagal menyimpan presensi di perangkat (penyimpanan penuh).", "error");
+            return;
+        }
 
         payloadAbsensi.forEach(item => {
             const idx = appState.absensi.findIndex(a => String(a.siswa_id) === String(item.siswa_id));

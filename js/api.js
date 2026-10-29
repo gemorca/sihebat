@@ -56,9 +56,7 @@ function startSilentTokenRefresh() {
             appState.token = res.token;
             if (res.user) syncUserFlags(res.user);
 
-            const savedSession = JSON.parse(localStorage.getItem("session_anak_wali") || "{}");
-            savedSession.token = res.token;
-            localStorage.setItem("session_anak_wali", JSON.stringify(savedSession));
+            SessionStore.update(s => { s.token = res.token; });
         }
     }, 10 * 60 * 1000);
 }
@@ -76,39 +74,14 @@ function setupNetworkStatusListeners() {
             banner?.classList.add("hidden");
             showToast("Koneksi terhubung kembali.");
 
-            const offlineData = localStorage.getItem("offline_absensi_queue");
-            if (offlineData) {
-                try {
-                    const parsed = JSON.parse(offlineData);
-                    const isAdmin = appState.user && appState.user.role === "admin";
-                    if (parsed.tanggal && parsed.tanggal !== getDateWITA() && !isAdmin) {
-                        localStorage.removeItem("offline_absensi_queue");
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Presensi Tidak Terkirim",
-                            text: `Presensi tanggal ${formatTanggalLabel(parsed.tanggal)} tidak sempat terkirim sebelum hari berganti dan sudah terkunci. Hubungi admin untuk koreksi.`,
-                            confirmButtonColor: "#2563eb"
-                        });
-                    } else {
-                        showLoading("Menyinkronkan data presensi offline...");
-                        const res = await apiCall("saveAbsensi", parsed, false);
-                        hideLoading();
-                        if (res && res.status === "success") {
-                            localStorage.removeItem("offline_absensi_queue");
-                            showToast("Data presensi offline berhasil disinkronkan ke server!");
-                        } else if (res && res.status === "error" && (res.code === "DATE_LOCKED" || res.code === "DATE_FUTURE")) {
-                            localStorage.removeItem("offline_absensi_queue");
-                            Swal.fire({ icon: "warning", title: "Presensi Tidak Terkirim", text: res.message, confirmButtonColor: "#2563eb" });
-                        }
-                    }
-                } catch (e) { }
-            }
+            await OfflineAbsensi.flush();
         } else {
             banner?.classList.remove("hidden");
         }
     };
 
     window.addEventListener("online", updateStatus);
+    if (navigator.onLine && appState.token) OfflineAbsensi.flush();
     window.addEventListener("offline", updateStatus);
 }
 

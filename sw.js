@@ -1,4 +1,4 @@
-const CACHE_NAME = "sihebat-pwa-v168";
+const CACHE_NAME = "sihebat-pwa-v171";
 
 const ASSETS_TO_CACHE = [
     "./",
@@ -8,9 +8,11 @@ const ASSETS_TO_CACHE = [
     "./css/tailwind.css",
     "./css/maskot.css",
     "./js/config.js",
+    "./js/session-store.js",
     "./js/state.js",
     "./js/maskot.js",
     "./js/api.js",
+    "./js/offline-queue.js",
     "./js/ui.js",
     "./js/pdf.js",
     "./js/install.js",
@@ -42,8 +44,8 @@ const ASSETS_TO_CACHE = [
     "./assets/img/logo-tutwuri.png",
     "./assets/img/background-sekolah.jpg",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
-    "https://cdn.jsdelivr.net/npm/chart.js",
-    "https://cdn.jsdelivr.net/npm/sweetalert2@11",
+    "https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js",
+    "https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js",
     "https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js",
     "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js",
     "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js",

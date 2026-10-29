@@ -97,8 +97,10 @@
 ├── assets/img/              # Logo, latar, dan ikon PWA
 └── js/
     ├── config.js            # URL API dan data master (surah, iqro, doa, kebiasaan)
+    ├── session-store.js     # Penyimpanan sesi (token) dan masa berlaku
     ├── state.js             # State aplikasi global
     ├── api.js               # Pemanggil API, retry, sinkronisasi offline
+    ├── offline-queue.js     # Antrean presensi offline (satu entri per tanggal)
     ├── ui.js                # Komponen UI bersama
     ├── pdf.js               # Ekspor PDF
     ├── install.js           # Ajakan pasang PWA
@@ -253,12 +255,14 @@ Untuk admin, `getDashboardData` mengembalikan `data.backup` berisi `{ tingkat, k
 |---|---|
 | Alamat backend | `API_URL` di `js/config.js` |
 | Panjang minimal kata sandi | `PASSWORD_MIN_LENGTH` di `js/config.js` |
+| Tempat simpan sesi (`"session"` atau `"local"`) dan batas tanpa aktivitas | `SESSION_STORAGE_MODE` dan `SESSION_MAX_AGE_MS` di `js/config.js` |
 | Lama cache data dan interval cek notifikasi | `CACHE_TTL` dan `NOTIF_POLL_MS` di `js/config.js` |
 | Daftar kebiasaan bawaan | `MASTER_KEBIASAAN` di `js/config.js` (atau atur dari backend lewat `getKonfigKebiasaan`) |
 | Daftar surah, iqro, dan doa | `MASTER_SURAHS`, `MASTER_IQRO`, `MASTER_DOA` di `js/config.js` |
 | Nama sekolah, judul, dan logo | `index.html`, `manifest.json`, dan folder `assets/img/` |
 | Warna tema | `tailwind.config.js` (`primary`, `secondary`, `accent`, `background`, `surface`) |
 | Versi cache PWA | `CACHE_NAME` di `sw.js` (naikkan setiap rilis baru) |
+| Versi pustaka CDN | tag `<script>` di `index.html` dan `ASSETS_TO_CACHE` di `sw.js`. Setelah mengubah, jalankan `npm run sri` |
 
 ## 🌐 Deploy ke Vercel
 
@@ -272,6 +276,8 @@ Konfigurasi sudah disiapkan di `vercel.json`.
 Berkas HTML, JS, dan CSS dikirim dengan `must-revalidate` agar pembaruan langsung terlihat, sedangkan folder `assets/` di-*cache* lebih lama.
 
 ## 🔒 Catatan Keamanan dan Privasi
+
+- **Content-Security-Policy** dikirim lewat `vercel.json` untuk `/` dan `/index.html`. Kebijakan ini masih mengizinkan `'unsafe-inline'` pada skrip karena `index.html` dan modul memakai atribut `onclick`. Jika Anda menambah layanan eksternal (API, gambar, font, CDN), tambahkan host-nya ke kebijakan itu. Untuk menguji perubahan tanpa memblokir apa pun, ganti nama header menjadi `Content-Security-Policy-Report-Only` dan lihat Console browser.
 
 Aplikasi ini menangani **data pribadi siswa**. Sebelum dipakai di sekolah:
 
