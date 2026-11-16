@@ -1,4 +1,4 @@
-const CACHE_NAME = "sihebat-pwa-v172";
+const CACHE_NAME = "sihebat-pwa-v173";
 
 const ASSETS_TO_CACHE = [
     "./",
@@ -34,7 +34,6 @@ const ASSETS_TO_CACHE = [
     "./js/modules/admin.js",
     "./js/modules/bk-admin.js",
     "./js/modules/arsip.js",
-    "./js/modules/backup.js",
     "./js/modules/magiclink.js",
     "./js/bantuan.js",
     "./js/main.js",

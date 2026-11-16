@@ -39,7 +39,6 @@ const BANTUAN_TUR = {
         { ikon: "fa-database", judul: "Master Data", teks: "Kelola Guru, Guru BK, Siswa, Kelas, Mentor, Sekolah, Kebiasaan, dan Tata Tertib. Data guru, siswa, dan Guru BK bisa diimpor dari CSV. Unduh Template CSV dulu agar formatnya sesuai. Ketuk Pilih di daftar untuk menghapus beberapa data sekaligus." },
         { ikon: "fa-pen-to-square", judul: "Koreksi data lama", teks: "Hanya admin yang bisa mengubah presensi dan kebiasaan pada tanggal yang sudah lewat. Halaman akan menampilkan tanda Mode koreksi admin." },
         { ikon: "fa-box-archive", judul: "Arsip semester", teks: "Simpan data semester lama di menu Arsip, buka lagi kapan saja, dan ekspor ke CSV." },
-        { ikon: "fa-clock-rotate-left", judul: "Backup dan pemulihan", teks: "Menu Backup menyimpan salinan seluruh data ke Drive. Backup berjalan otomatis setiap hari dan bisa dibuat manual. Jika data terhapus atau rusak, ketuk Pulihkan pada backup yang diinginkan lalu pilih sheet yang perlu dikembalikan." },
         { ikon: "fa-key", judul: "Reset kata sandi", teks: "Guru dan siswa yang lupa kata sandi meminta reset ke admin. Reset dilakukan dari Master Data." },
         { ikon: "fa-circle-question", judul: "Butuh bantuan?", teks: "Ketuk tanda tanya di bagian atas layar. Bantuannya menyesuaikan halaman yang sedang dibuka." }
     ]
@@ -67,7 +66,6 @@ const BANTUAN_HALAMAN = {
             admin: {
                 langkah: [
                     "Lihat ringkasan kelas dan grafik di bagian atas.",
-                    "Perhatikan banner di bawah kotak Mode Administrator. Banner muncul jika backup belum ada, gagal, atau sudah lebih dari 2 hari. Ketuk Buka Backup untuk memeriksanya.",
                     "Ketuk menu cepat untuk langsung membuka fitur.",
                     "Cek agenda pembinaan mendatang di bagian bawah."
                 ]
@@ -252,25 +250,7 @@ const BANTUAN_HALAMAN = {
         tips: [
             "Untuk menghapus banyak data, ketuk Pilih di tab Guru, BK, Siswa, atau Kelas, centang datanya, lalu ketuk Hapus.",
             "Hapus massal meminta konfirmasi dan tidak bisa dibatalkan di halaman ini. Periksa pilihan Anda dulu.",
-            "Jika data terhapus keliru, pulihkan dari menu Backup. Backup otomatis sebelum hapus massal hanya dibuat jika pengaturannya aktif.",
             "Reset kata sandi guru dan siswa dilakukan dari tab masing-masing."
-        ]
-    },
-    backup: {
-        ikon: "fa-database", judul: "Backup Data",
-        ringkas: "Simpan salinan seluruh data ke Drive dan pulihkan jika ada data yang terhapus atau rusak.",
-        langkah: [
-            "Ketuk Backup sekarang untuk membuat salinan manual. Catatan boleh diisi.",
-            "Buka Pengaturan jadwal untuk mengatur backup otomatis: jam, dan jumlah backup harian, mingguan, serta bulanan yang disimpan. Ketuk Simpan pengaturan.",
-            "Untuk memulihkan, ketuk Pulihkan pada backup yang diinginkan, centang sheet yang perlu dikembalikan, lalu ketuk Pulihkan sheet terpilih.",
-            "Ketik PULIHKAN pada kotak konfirmasi untuk melanjutkan."
-        ],
-        tips: [
-            "Pemulihan mengganti seluruh isi sheet yang dipilih. Data yang dibuat setelah waktu backup hilang dari sheet itu.",
-            "Pulihkan hanya sheet yang rusak. Bandingkan jumlah baris di backup dengan jumlah baris sekarang sebelum memilih.",
-            "Biarkan Buat salinan pengaman dulu tetap dicentang agar pemulihan bisa dibatalkan. Salinan itu muncul di daftar dengan tipe Pengaman sebelum pulihkan.",
-            "Backup yang sudah pernah dipakai memulihkan menampilkan catatan Dipulihkan beserta waktunya.",
-            "Folder backup di Drive berisi data pribadi siswa dan guru. Jangan dibagikan."
         ]
     },
     arsip: {
@@ -342,26 +322,6 @@ const BANTUAN_FAQ = [
     {
         q: "Bagaimana mengimpor data dari CSV?",
         a: "Buka Master Data, pilih tab yang sesuai, lalu ketuk Template CSV untuk mengunduh format yang benar. Isi templatenya, lalu ketuk impor dan pilih berkas.",
-        roles: ["admin"]
-    },
-    {
-        q: "Data terhapus atau rusak. Bagaimana memulihkannya?",
-        a: "Buka menu Backup, pilih backup yang dibuat sebelum data bermasalah, lalu ketuk Pulihkan. Centang hanya sheet yang perlu dikembalikan, lalu ketik PULIHKAN. Pemulihan lewat aplikasi mengganti isi sheet itu sepenuhnya, jadi data yang dibuat setelah waktu backup hilang dari sheet tersebut.",
-        roles: ["admin"]
-    },
-    {
-        q: "Apakah pemulihan menimpa data yang sekarang?",
-        a: "Ya. Sheet yang dipilih diganti sama persis dengan isi backup, tidak digabung. Karena itu aplikasi membuat salinan pengaman lebih dulu. Jika hasilnya keliru, pulihkan lagi dari backup bertipe Pengaman sebelum pulihkan.",
-        roles: ["admin"]
-    },
-    {
-        q: "Bagaimana mengatur backup otomatis?",
-        a: "Buka menu Backup, lalu ketuk Pengaturan jadwal. Atur jam dan jumlah backup yang disimpan, lalu ketuk Simpan pengaturan. Backup lama yang melewati batas dipindahkan ke tempat sampah Drive.",
-        roles: ["admin"]
-    },
-    {
-        q: "Banner backup muncul di Beranda. Apa artinya?",
-        a: "Banner muncul jika belum ada backup, backup terakhir gagal, backup terakhir lebih dari 2 hari, atau jadwal otomatis belum aktif. Ketuk Buka Backup untuk memeriksa, lalu buat backup manual atau simpan ulang pengaturan jadwal.",
         roles: ["admin"]
     },
     {
